@@ -34,9 +34,9 @@ async function run() {
     const octokit = new Octokit();
     const tag = eventPayload.ref && eventPayload.ref.replace('refs/tags/', '');
     console.log(`tag is ${tag}`);
-    // const pull_number = eventPayload.pull_request && eventPayload.pull_request.number;
-    //
-    // console.log(`${pull_number} and ${repo} aand ${owner}`);
+    const pull_number = eventPayload.pull_request ? eventPayload.pull_request.number : undefined;
+    console.log(`pull number is ${pull_number}`);
+
     // let pr = {};
     // try {
     //   pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number/commits", {
