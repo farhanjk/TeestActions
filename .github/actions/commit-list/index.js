@@ -40,8 +40,31 @@ async function run() {
     const octokit = new Octokit();
     const tag = eventPayload.ref && eventPayload.ref.includes('refs/tags/') && eventPayload.ref.replace('refs/tags/', '');
     console.log(`tag is ${tag}`);
-    const pull_number = eventPayload.pull_request ? eventPayload.pull_request.number : undefined;
-    console.log(`pull number is ${pull_number}`);
+    // const pull_number = eventPayload.pull_request ? eventPayload.pull_request.number : undefined;
+    // console.log(`pull number is ${pull_number}`);
+
+    // let pr = {};
+    // try {
+    //   pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number/commits", {
+    //     owner,
+    //     repo,
+    //     pull_number,
+    //   });
+    //   console.log(`${JSON.stringify(pr.data.map((value => value.commit)), null, 2)}`);
+    // } catch (error) {
+    //   core.setFailed(`Getting pr for '${pull_number}' failed with error ${error}`);
+    // }
+
+    let tags = {};
+    try {
+      tags = await octokit.request("GET /repos/:owner/:repo/tags", {
+        owner,
+        repo,
+      });
+      console.log(`${JSON.stringify(tags.data, null, 2)}`);
+    } catch (error) {
+      core.setFailed(`Getting tags for '${repo}' failed with error ${error}`);
+    }
 
     if (!githubContext.event || !githubContext.event.commits) {
       if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
