@@ -64,15 +64,17 @@ async function run() {
       tags = tags.data;
       console.log(`${JSON.stringify(tags, null, 2)}`);
       if (tags.length >= 2) {
-        const tag1 = tags[0].name;
-        const tag2 = tag[1].name;
-        tagCommits = await octokit.request("GET /repos/:owner/:repo/compare/:tag1...:tag2", {
-          owner,
-          repo,
-          tag1,
-          tag2,
-        });
-        console.log(`${JSON.stringify(tagCommits.data, null, 2)}`);
+        const tag1 = tags[0];
+        const tag2 = tag[1];
+        console.log({ tag1 });
+        console.log({ tag2 });
+        // tagCommits = await octokit.request("GET /repos/:owner/:repo/compare/:tag1...:tag2", {
+        //   owner,
+        //   repo,
+        //   tag1,
+        //   tag2,
+        // });
+        // console.log(`${JSON.stringify(tagCommits.data, null, 2)}`);
       }
     } catch (error) {
       core.setFailed(`Getting tags for '${repo}' failed with error ${error}`);
