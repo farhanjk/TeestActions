@@ -34,10 +34,10 @@ jobs:
       - name: Checking local action
         id: commit-list
         env:
-          GITHUB_CONTEXT: ${{ GITHUB_CONTEXT }}
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         uses: ./.github/actions/commit-list
         with:
-          github-context: ${{ toJSON(github) }}
+          github-context: ${{ GITHUB_CONTEXT }}
 
       - name: Output commit list
         run: echo "${{ steps.id.outputs.commit-list }}"
