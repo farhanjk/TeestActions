@@ -36,7 +36,7 @@ async function run() {
       core.setFailed('Github Context is Missing event.commits');
     } else {
       console.log('here 2');
-      core.setOutput('commit-list', commitList(githubContext.events.commits));
+      core.setOutput('commit-list', commitList(githubContext.event.commits));
     }
   } catch (error) {
     core.setFailed(error.message);
