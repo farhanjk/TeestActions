@@ -1,6 +1,9 @@
 name: 'Event commit list'
 description: 'Use Event From Github Context To Extract A Formatted List Of Commits'
 inputs:
+  repo-token:
+    description: 'Github Repo Token'
+    required: true
   github-context:
     description: 'Github Context.'
     required: true

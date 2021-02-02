@@ -27,6 +27,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         uses: ./.github/actions/commit-list
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           github-context: ${{ toJSON(github) }}
 
       - name: Save Commit List

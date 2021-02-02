@@ -28,7 +28,7 @@ jobs:
 
       - name: Dump GitHub context
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github.event.commits) }}
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
 
       - name: Fetch Commit List
@@ -37,6 +37,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         uses: ./.github/actions/commit-list
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           github-context: ${{ toJSON(github) }}
 
       - name: Save Commit List

@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const axios = require('axios');
+const { Octokit } = require("@octokit/action");
 
 const commitList = (commits) => {
   const filteredCommits = commits.filter((value => value.committer.username !== 'web-flow'))
@@ -28,6 +29,9 @@ const commitList = (commits) => {
 
 async function run() {
   try {
+    const githubToken = core.getInput('repo-token');
+    console.log(`Github token is: ${githubToken}`);
+
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
     // console.log({ githubContextString });
