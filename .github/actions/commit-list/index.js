@@ -33,9 +33,9 @@ async function run() {
   try {
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
-    // console.log({ githubContextString });
+    console.log({ githubContextString });
     const hasCommits = !githubContext.event || !githubContext.event.commits;
-    console.log(`Has commits is ${pull_number}`);
+    console.log(`Has commits is ${hasCommits}`);
 
     const octokit = new Octokit();
     const tag = eventPayload.ref && eventPayload.ref.includes('refs/tags/') && eventPayload.ref.replace('refs/tags/', '');
