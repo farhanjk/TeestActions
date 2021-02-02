@@ -26,7 +26,7 @@ const commitList = (commits) => {
 
 async function run() {
   try {
-    const githubContext = JSON.parse(core.getInput('github-context'));
+    const githubContext = JSON.parse(core.getInput('github-context')).githubContext;
     console.log({ githubContext });
     if (!githubContext.event || !githubContext.event.commits) {
       core.setFailed('Github Context is Missing event.commits');
