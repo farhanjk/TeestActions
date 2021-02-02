@@ -29,6 +29,7 @@ async function run() {
     const githubContextString = core.getInput('github-context');
     console.log(githubContextString);
     const githubContext = JSON.parse(githubContextString);
+    console.log('printing the context object');
     console.log({ githubContext });
     if (!githubContext.event || !githubContext.event.commits) {
       console.log('here 1');
