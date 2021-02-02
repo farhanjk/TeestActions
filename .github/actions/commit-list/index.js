@@ -33,10 +33,11 @@ const getCommitsFromPR = async (pull_number) => {
 
   let pr = {};
   try {
-    pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number/commits", {
+    pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number/commits{?per_page}", {
       owner,
       repo,
       pull_number,
+      per_page: 100,
     });
 
     return pr.data.map((value => value.commit));
