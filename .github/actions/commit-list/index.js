@@ -34,17 +34,13 @@ async function run() {
       if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
         && githubContext.event.pull_request._links.commits) {
         const href = githubContext.event.pull_request._links.commits.href;
-        axios.get(href)
-          .then(response => {
-            console.log({ commits: response.data.map((value => JSON.stringify(value.commit, null, 2))) });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-
+        const response = await axios.get(href);
+        const list = commitList(response.data.map((value => value.commit)));
+        console.log(  { list });
+        core.setOutput('commit-list', list.join('\n'));
       } else {
+        core.setFailed('Github Context is Missing Commits');
       }
-      core.setFailed('Github Context is Missing event.commits');
     } else {
       const list = commitList(githubContext.event.commits);
       console.log(  { list });
