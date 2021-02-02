@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const axios = require('axios');
 
 const commitList = (commits) => {
   const filteredCommits = commits.filter((value => value.committer.username !== 'web-flow'))
@@ -30,6 +31,20 @@ async function run() {
     const githubContext = JSON.parse(githubContextString);
     console.log({ githubContextString });
     if (!githubContext.event || !githubContext.event.commits) {
+      if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
+        && githubContext.event.pull_request._links.commits) {
+        const href = githubContext.event.pull_request._links.commits.href;
+        axios.get(href)
+          .then(response => {
+            console.log(response.data.url);
+            console.log({ data: response.data });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+      } else {
+      }
       core.setFailed('Github Context is Missing event.commits');
     } else {
       const list = commitList(githubContext.event.commits);
