@@ -1,11 +1,6 @@
 name: Testing Workflow
 
-on:
-  push:
-    branches:
-      - '*'
-    tags:
-      - '*'
+on: pull_request
 
 jobs:
   ##########################################################
@@ -25,11 +20,6 @@ jobs:
 #        uses: actions/setup-java@v1
 #        with:
 #          java-version: '11.0.4'
-#
-#      - name: Dump GitHub context
-#        env:
-#          GITHUB_CONTEXT: ${{ toJSON(github) }}
-#        run: echo "$GITHUB_CONTEXT"
 #
       - name: Fetch Commit List
         id: commit-list
