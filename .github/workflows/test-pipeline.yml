@@ -1,6 +1,11 @@
 name: Testing Workflow
 
-on: push
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
 
 jobs:
   ##########################################################
