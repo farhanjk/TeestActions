@@ -32,7 +32,7 @@ const commitList = (commits) => {
 async function run() {
   try {
     const octokit = new Octokit();
-    const pull_number = 3;
+    const pull_number = eventPayload.pull_request.number;
     console.log(`${pull_number} and ${repo} aand ${owner}`);
     let pr = {};
     try {
