@@ -63,11 +63,12 @@ const getCommitsFromTag = async () => {
       const tag1Name = tag1.name;
       const tag2Name = tag2.name;
 
-      let tagCommits = await octokit.request("GET /repos/:owner/:repo/compare/:tag2Name...:tag1Name", {
+      let tagCommits = await octokit.request("GET /repos/:owner/:repo/compare/:tag2Name...:tag1Name{?per_page}", {
         owner,
         repo,
         tag1Name,
         tag2Name,
+        per_page: 100,
       });
       tagCommits = tagCommits.data.commits.map((value => value.commit));
       return tagCommits;
@@ -84,9 +85,6 @@ async function run() {
   try {
     let commits = [];
 
-    const githubContextString = core.getInput('github-context');
-    const githubContext = JSON.parse(githubContextString);
-
     const pull_number = eventPayload.pull_request ? eventPayload.pull_request.number : undefined;
 
     if (pull_number) {
@@ -100,7 +98,7 @@ async function run() {
     }
 
     if (!commits || commits.length <= 0) {
-      commits = (githubContext.event && githubContext.event.commits) || [];
+      commits = (eventPayload && eventPayload.commits) || [];
     }
 
     const list = commitList(commits);
