@@ -34,7 +34,7 @@ async function run() {
     } else {
       const list = commitList(githubContext.event.commits);
       console.log(  { list });
-      core.setOutput('commit-list', list);
+      core.setOutput('commit-list', list.join('\n'));
     }
   } catch (error) {
     core.setFailed(error.message);
