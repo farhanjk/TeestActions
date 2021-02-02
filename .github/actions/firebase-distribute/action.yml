@@ -1,0 +1,28 @@
+name: 'Firebase App Distribution'
+description: 'Use Firebase App Distribution to distribute to testers'
+inputs:
+  appId:
+    description: 'Firebase App ID. You can find the App ID in the Firebase console, on the General Settings page.'
+    required: true
+  token:
+    description: 'Upload token - see Firebase CLI Reference'
+    required: true
+  file:
+      description: 'Artifact to upload (.apk or .ipa)'
+      required: true
+  groups:
+      description: 'Distribution groups'
+      required: false
+#  releaseNotesFile:
+#      description: 'Release notes visible on release page'
+#      required: false
+#  debug:
+#      description: 'Flag that can included to print verbose log output.'
+#      required: false
+#      default: false
+outputs:
+  upload_time:
+    description: 'The time of artifact upload'
+runs:
+  using: 'node12'
+  main: 'index.js'
