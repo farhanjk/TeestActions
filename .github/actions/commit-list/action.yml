@@ -1,0 +1,12 @@
+name: 'Event commit list'
+description: 'Use Event From Github Context To Extract A Formatted List Of Commits'
+inputs:
+  github-context:
+    description: 'Github Context (env: GITHUB_CONTEXT: ${{ toJSON(github) }}).'
+    required: true
+outputs:
+  commit-list:
+    description: 'Formatted List Of Events From Github Context.'
+runs:
+  using: 'node12'
+  main: 'index.js'
