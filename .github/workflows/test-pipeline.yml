@@ -40,7 +40,7 @@ jobs:
           github-context: ${{ toJSON(github) }}
 
       - name: Output commit list
-        run: echo "${{ steps.commit-list.outputs.commit-list }}" >> commit-list.txt
+        run: echo ${{ steps.commit-list.outputs.commit-list }} >> commit-list.txt
 
       - name: Archive Commit lList
         uses: actions/upload-artifact@v1
