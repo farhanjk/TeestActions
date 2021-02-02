@@ -59,7 +59,7 @@ async function run() {
 
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
-    // console.log({ githubContextString });
+    console.log({ githubContextString });
     if (!githubContext.event || !githubContext.event.commits) {
       if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
         && githubContext.event.pull_request._links.commits) {
