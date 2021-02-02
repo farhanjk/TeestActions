@@ -39,7 +39,7 @@ const getCommitsFromPR = async (pull_number) => {
       repo,
       pull_number,
     });
-    console.log({ data: pr.data.map((value => value.commit)) });
+
     return pr.data.map((value => value.commit));
   } catch (error) {
     core.setFailed(`Getting pr for '${pull_number}' failed with error ${error}`);
@@ -62,8 +62,7 @@ const getCommitsFromTag = async (pull_number) => {
       const tag2 = tags[1];
       const tag1Name = tag1.name;
       const tag2Name = tag2.name;
-      console.log(`${JSON.stringify(tag1, null, 2)}`);
-      console.log(`${JSON.stringify(tag2, null, 2)}`);
+
       let tagCommits = await octokit.request("GET /repos/:owner/:repo/compare/:tag2Name...:tag1Name", {
         owner,
         repo,
@@ -92,12 +91,12 @@ async function run() {
     console.log(`pull number is ${pull_number}`);
 
     if (pull_number) {
-      commits = getCommitsFromPR(pull_number);
+      commits = await getCommitsFromPR(pull_number);
     } else {
       const tag = eventPayload.ref && eventPayload.ref.includes('refs/tags/') && eventPayload.ref.replace('refs/tags/', '');
 
       if (tag) {
-        commits = getCommitsFromTag();
+        commits = await getCommitsFromTag();
       }
     }
 
