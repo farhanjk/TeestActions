@@ -2,7 +2,7 @@ name: 'Event commit list'
 description: 'Use Event From Github Context To Extract A Formatted List Of Commits'
 inputs:
   github-context:
-    description: 'Github Context (env: GITHUB_CONTEXT: ${{ toJSON(github) }}).'
+    description: 'Github Context.'
     required: true
 outputs:
   commit-list:
