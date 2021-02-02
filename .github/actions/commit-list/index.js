@@ -36,8 +36,7 @@ async function run() {
         const href = githubContext.event.pull_request._links.commits.href;
         axios.get(href)
           .then(response => {
-            console.log(response.data.url);
-            console.log({ data: response.data });
+            console.log({ commits: response.data.map((value => value.commit)) });
           })
           .catch(error => {
             console.log(error);
