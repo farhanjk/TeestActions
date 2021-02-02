@@ -7,7 +7,7 @@ const commitList = (commits) => {
   const commitInformation = filteredCommits.map((value => {
     return {
       message: value.message || '',
-      userTime: `${value.author.name} (${new Date(value.timestamp).toDateString()})`,
+      userTime: `${value.author.name} (${new Date(value.timestamp || value.date).toDateString()})`,
     };
   }));
 
