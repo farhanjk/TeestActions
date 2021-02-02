@@ -35,7 +35,11 @@ async function run() {
       if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
         && githubContext.event.pull_request._links.commits) {
         const href = githubContext.event.pull_request._links.commits.href;
-        const response = await axios.get(href);
+        const response = await axios.get(href, {
+          params: {
+            per_page: 200,
+          }
+        });
         let commits = response.data.map((value => value.commit));
         // console.log(JSON.stringify(commits, null, 2));
         const list = commitList(commits);
