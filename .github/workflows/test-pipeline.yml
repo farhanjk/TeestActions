@@ -34,7 +34,7 @@ jobs:
       - name: Checking local action
         id: commit-list
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          GITHUB_CONTEXT: ${{ GITHUB_CONTEXT }}
         uses: ./.github/actions/commit-list
         with:
           github-context: ${{ toJSON(github) }}

@@ -1,5 +1,4 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
 
 const commitList = (commits) => {
   const filteredCommits = commits.filter((value => value.committer.username !== 'web-flow'))
@@ -27,11 +26,13 @@ const commitList = (commits) => {
 
 async function run() {
   try {
-    const githubContext = github.context;
+    const githubContext = core.getInput('github-context');
     console.log({ githubContext });
     if (!githubContext.event || !githubContext.event.commits) {
+      console.log('here 1');
       core.setFailed('Github Context is Missing event.commits');
     } else {
+      console.log('here 2');
       core.setOutput('commit-list', commitList(githubContext.events.commits));
     }
   } catch (error) {
