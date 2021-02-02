@@ -88,7 +88,6 @@ async function run() {
     const githubContext = JSON.parse(githubContextString);
 
     const pull_number = eventPayload.pull_request ? eventPayload.pull_request.number : undefined;
-    console.log(`pull number is ${pull_number}`);
 
     if (pull_number) {
       commits = await getCommitsFromPR(pull_number);
@@ -103,31 +102,9 @@ async function run() {
     if (commits.length <= 0) {
       commits = githubContext.event && githubContext.event.commits;
     }
-    console.log(`Commits are ${JSON.stringify(commits, null, 2)}`);
 
-
-    // if (!githubContext.event || !githubContext.event.commits) {
-    //   if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
-    //     && githubContext.event.pull_request._links.commits) {
-    //     const href = githubContext.event.pull_request._links.commits.href;
-    //     const response = await axios.get(href, {
-    //       params: {
-    //         per_page: 200,
-    //       }
-    //     });
-    //     let commits = response.data.map((value => value.commit));
-    //     // console.log(JSON.stringify(commits, null, 2));
-    //     const list = commitList(commits);
-    //     // console.log(  { list });
-    //     core.setOutput('commit-list', list.join('\n'));
-    //   } else {
-    //     core.setFailed('Github Context is Missing Commits');
-    //   }
-    // } else {
-    //   const list = commitList(githubContext.event.commits);
-    //   // console.log(  { list });
-    //   core.setOutput('commit-list', list.join('\n'));
-    // }
+    const list = commitList(githubContext.event.commits);
+    core.setOutput('commit-list', list.join('\n'));
   } catch (error) {
     core.setFailed(error.message);
   }
