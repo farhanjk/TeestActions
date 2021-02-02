@@ -36,7 +36,7 @@ async function run() {
     console.log(`${pull_number} and ${repo} aand ${owner}`);
     let pr = {};
     try {
-      pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number", {
+      pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number/commits", {
         owner,
         repo,
         pull_number,
