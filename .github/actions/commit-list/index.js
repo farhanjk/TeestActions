@@ -17,6 +17,7 @@ const commitList = (commits) => {
     return commitInformation.flatMap((info) => {
       const formattedMessage = `==> ${info.message}`
       const toReturn = (info.userTime !== prevUserTime ? [info.userTime, formattedMessage] : [formattedMessage]);
+      console.log(`I return ${toReturn}`);
       prevUserTime = info.userTime;
       return toReturn;
     });
@@ -36,16 +37,16 @@ async function run() {
         const href = githubContext.event.pull_request._links.commits.href;
         const response = await axios.get(href);
         let commits = response.data.map((value => value.commit));
-        console.log(JSON.stringify(commits, null, 2));
+        // console.log(JSON.stringify(commits, null, 2));
         const list = commitList(commits);
-        console.log(  { list });
+        // console.log(  { list });
         core.setOutput('commit-list', list.join('\n'));
       } else {
         core.setFailed('Github Context is Missing Commits');
       }
     } else {
       const list = commitList(githubContext.event.commits);
-      console.log(  { list });
+      // console.log(  { list });
       core.setOutput('commit-list', list.join('\n'));
     }
   } catch (error) {
