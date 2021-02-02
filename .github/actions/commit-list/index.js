@@ -1,5 +1,4 @@
 const core = require('@actions/core');
-const axios = require('axios');
 const { Octokit } = require("@octokit/action");
 const eventPayload = require(process.env.GITHUB_EVENT_PATH);
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
@@ -46,7 +45,7 @@ const getCommitsFromPR = async (pull_number) => {
   }
 }
 
-const getCommitsFromTag = async (pull_number) => {
+const getCommitsFromTag = async () => {
   const octokit = new Octokit();
 
   let tags = {};
@@ -99,7 +98,7 @@ async function run() {
       }
     }
 
-    if (!commit || commits.length <= 0) {
+    if (!commits || commits.length <= 0) {
       commits = (githubContext.event && githubContext.event.commits) || [];
     }
 
@@ -110,4 +109,4 @@ async function run() {
   }
 }
 
-run()
+await run()
