@@ -32,7 +32,7 @@ const commitList = (commits) => {
 async function run() {
   try {
     const octokit = new Octokit();
-    const tag = eventPayload.ref && eventPayload.ref.replace('refs/tags/', '');
+    const tag = eventPayload.ref && eventPayload.ref.contains('refs/tags/') && eventPayload.ref.replace('refs/tags/', '');
     console.log(`tag is ${tag}`);
     const pull_number = eventPayload.pull_request ? eventPayload.pull_request.number : undefined;
     console.log(`pull number is ${pull_number}`);
