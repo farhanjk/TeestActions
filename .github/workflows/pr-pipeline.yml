@@ -25,9 +25,9 @@ jobs:
         id: commit-list
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: ./.github/actions/commit-list
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           github-context: ${{ toJSON(github) }}
 
       - name: Save Commit List
