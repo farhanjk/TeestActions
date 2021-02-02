@@ -99,11 +99,11 @@ async function run() {
       }
     }
 
-    if (commits.length <= 0) {
-      commits = githubContext.event && githubContext.event.commits;
+    if (!commit || commits.length <= 0) {
+      commits = (githubContext.event && githubContext.event.commits) || [];
     }
 
-    const list = commitList(githubContext.event.commits);
+    const list = commitList(commits);
     core.setOutput('commit-list', list.join('\n'));
   } catch (error) {
     core.setFailed(error.message);
