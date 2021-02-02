@@ -39,6 +39,7 @@ const getCommitsFromPR = async (pull_number) => {
       repo,
       pull_number,
     });
+    console.log({ data: pr.data.map((value => value.commit)) });
     return pr.data.map((value => value.commit));
   } catch (error) {
     core.setFailed(`Getting pr for '${pull_number}' failed with error ${error}`);
