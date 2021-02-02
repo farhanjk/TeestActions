@@ -32,17 +32,16 @@ async function run() {
   try {
     const octokit = new Octokit();
     console.log(`Payload is: ${JSON.stringify(eventPayload, null, 2)}`);
-    // const comm = await octokit.pulls.listCommits();
-    // console.log(`commits are ${JSON.stringify(comm, null, 2)}`);
-    // const { data } = await octokit.request(
-    //   "GET /repos/:repository/issues/:pr_number/commits",
-    //   {
-    //     repository: process.env.GITHUB_REPOSITORY,
-    //     pr_number: eventPayload.pull_request.number,
-    //     body: "Thank you for your pull request!"
-    //   }
-    // );
+    // repos/farhanjk/TeestActions/pulls/3/commits
 
+    const { data } = await octokit.request(
+      "GET /repos/:repository/issues/:pr_number/commits",
+      {
+        repository: process.env.GITHUB_REPOSITORY,
+        pr_number: eventPayload.pull_request.number,
+      }
+    );
+  console.log(`Data is ${JSON.stringify(data,  null, 2)}`);
 
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
