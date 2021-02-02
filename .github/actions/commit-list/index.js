@@ -38,7 +38,7 @@ async function run() {
       "GET /repos/:repository/issues/:pr_number/commits",
       {
         repository: process.env.GITHUB_REPOSITORY,
-        pr_number: eventPayload.pull_request.number,
+        pr_number: eventPayload.number,
       }
     );
   console.log(`Data is ${JSON.stringify(data,  null, 2)}`);
