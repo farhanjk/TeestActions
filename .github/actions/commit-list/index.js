@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const axios = require('axios');
 const { Octokit } = require("@octokit/action");
 const eventPayload = require(process.env.GITHUB_EVENT_PATH);
+const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
 
 const commitList = (commits) => {
   const filteredCommits = commits.filter((value => value.committer.username !== 'web-flow'))
@@ -31,7 +32,20 @@ const commitList = (commits) => {
 async function run() {
   try {
     const octokit = new Octokit();
-    console.log(`Payload is: ${JSON.stringify(eventPayload, null, 2)}`);
+    const pull_number = core.getInput('pull_number');
+
+    let pr = {};
+    try {
+      pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number", {
+        owner,
+        repo,
+        pull_number,
+      });
+      console.log({ pr });
+    } catch (error) {
+      core.setFailed(`Getting pr for '${pull_number}' failed with error ${error}`);
+    }
+    // console.log(`Payload is: ${JSON.stringify(eventPayload, null, 2)}`);
     // repos/farhanjk/TeestActions/pulls/3/commits
 
     const { data } = await octokit.request(
