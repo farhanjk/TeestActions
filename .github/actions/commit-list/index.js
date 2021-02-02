@@ -41,7 +41,7 @@ async function run() {
         repo,
         pull_number,
       });
-      console.log({ pr });
+      console.log(`${JSON.stringify(pr.data, null, 2)}`);
     } catch (error) {
       core.setFailed(`Getting pr for '${pull_number}' failed with error ${error}`);
     }
