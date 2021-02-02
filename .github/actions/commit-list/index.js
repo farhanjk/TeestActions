@@ -31,7 +31,7 @@ const commitList = (commits) => {
 async function run() {
   try {
     const octokit = new Octokit();
-    console.log(`${JSON.stringify(eventPayload, null, 2)}`);
+    console.log(`Payload is: ${JSON.stringify(eventPayload, null, 2)}`);
     // const comm = await octokit.pulls.listCommits();
     // console.log(`commits are ${JSON.stringify(comm, null, 2)}`);
     // const { data } = await octokit.request(
