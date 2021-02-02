@@ -29,8 +29,9 @@ const commitList = (commits) => {
 
 async function run() {
   try {
-    const githubToken = core.getInput('repo-token');
-    console.log(`Github token is: ${githubToken}`);
+    const octokit = new Octokit();
+    const comm = await octokit.pulls.listCommits();
+    console.log(`commits are ${JSON.stringify(comm, null, 2)}`);
 
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
