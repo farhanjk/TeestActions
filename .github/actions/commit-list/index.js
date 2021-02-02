@@ -32,8 +32,8 @@ const commitList = (commits) => {
 async function run() {
   try {
     const octokit = new Octokit();
-    const pull_number = core.getInput('pull_number');
-
+    const pull_number = 3;
+    console.log(`${pull_number} and ${repo} aand ${owner}`);
     let pr = {};
     try {
       pr = await octokit.request("GET /repos/:owner/:repo/pulls/:pull_number", {
@@ -48,14 +48,14 @@ async function run() {
     // console.log(`Payload is: ${JSON.stringify(eventPayload, null, 2)}`);
     // repos/farhanjk/TeestActions/pulls/3/commits
 
-    const { data } = await octokit.request(
-      "GET /repos/:repository/issues/:pr_number/commits",
-      {
-        repository: process.env.GITHUB_REPOSITORY,
-        pr_number: eventPayload.number,
-      }
-    );
-  console.log(`Data is ${JSON.stringify(data,  null, 2)}`);
+  //   const { data } = await octokit.request(
+  //     "GET /repos/:repository/issues/:pr_number/commits",
+  //     {
+  //       repository: process.env.GITHUB_REPOSITORY,
+  //       pr_number: 3,
+  //     }
+  //   );
+  // console.log(`Data is ${JSON.stringify(data,  null, 2)}`);
 
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
