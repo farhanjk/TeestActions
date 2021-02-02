@@ -29,13 +29,15 @@ async function run() {
   try {
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
-    console.log({ githubContextString });
+    // console.log({ githubContextString });
     if (!githubContext.event || !githubContext.event.commits) {
       if(githubContext.event && githubContext.event.pull_request && githubContext.event.pull_request._links
         && githubContext.event.pull_request._links.commits) {
         const href = githubContext.event.pull_request._links.commits.href;
         const response = await axios.get(href);
-        const list = commitList(response.data.map((value => value.commit)));
+        let commits = response.data.map((value => value.commit));
+        console.log(JSON.stringify(commits, null, 2));
+        const list = commitList(commits);
         console.log(  { list });
         core.setOutput('commit-list', list.join('\n'));
       } else {
