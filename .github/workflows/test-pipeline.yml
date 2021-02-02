@@ -35,7 +35,7 @@ jobs:
         id: commit-list
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-        uses: ./.github/actions/commit-lit
+        uses: ./.github/actions/commit-list
         with:
           github-context: $GITHUB_CONTEXT
 
