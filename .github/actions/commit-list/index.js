@@ -64,8 +64,8 @@ async function run() {
       tags = tags.data;
       console.log(`${JSON.stringify(tags, null, 2)}`);
       if (tags.length >= 2) {
-        const tag1 = tags[0];
-        const tag2 = tags[1];
+        const tag1 = tags[0].tag1.name;
+        const tag2 = tags[1].tag2.name;
         console.log({ tag1 });
         console.log({ tag2 });
         // tagCommits = await octokit.request("GET /repos/:owner/:repo/compare/:tag1...:tag2", {
