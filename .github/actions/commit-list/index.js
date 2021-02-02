@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const axios = require('axios');
 const { Octokit } = require("@octokit/action");
+const eventPayload = require(process.env.GITHUB_EVENT_PATH);
 
 const commitList = (commits) => {
   const filteredCommits = commits.filter((value => value.committer.username !== 'web-flow'))
@@ -30,8 +31,18 @@ const commitList = (commits) => {
 async function run() {
   try {
     const octokit = new Octokit();
-    const comm = await octokit.pulls.listCommits();
-    console.log(`commits are ${JSON.stringify(comm, null, 2)}`);
+    console.log(`${JSON.stringify(eventPayload, null, 2)}`);
+    // const comm = await octokit.pulls.listCommits();
+    // console.log(`commits are ${JSON.stringify(comm, null, 2)}`);
+    // const { data } = await octokit.request(
+    //   "GET /repos/:repository/issues/:pr_number/commits",
+    //   {
+    //     repository: process.env.GITHUB_REPOSITORY,
+    //     pr_number: eventPayload.pull_request.number,
+    //     body: "Thank you for your pull request!"
+    //   }
+    // );
+
 
     const githubContextString = core.getInput('github-context');
     const githubContext = JSON.parse(githubContextString);
